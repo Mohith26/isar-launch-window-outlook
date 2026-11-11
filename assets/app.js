@@ -335,7 +335,7 @@ async function main() {
   $('#dclose').onclick = closeNight;
   window.addEventListener('hashchange', () => { const night2 = planFromHash(); refresh(); if (night2) { const [y, k] = night2.split('.').map(Number); const s = grid.findIndex((g) => g.year === y); if (s >= 0) openNight(s, k); } });
   document.addEventListener('keydown', (e) => {
-    if (e.target.closest('input, select, textarea') || e.metaKey || e.ctrlKey || e.altKey) return;
+    if ((e.target instanceof Element && e.target.closest('input, select, textarea')) || e.metaKey || e.ctrlKey || e.altKey) return;
     const tabs = { 1: 'overview', 2: 'nights', 3: 'limits', 4: 'backtest', 5: 'live' };
     if (tabs[e.key]) { switchTab(tabs[e.key]); e.preventDefault(); }
     else if (e.key === 'Escape') closeNight();
@@ -343,7 +343,7 @@ async function main() {
     else if (e.key === 'e') exportCSV();
     else if (e.key === '?') toast('1-5 views · ←→↑↓ move night · Enter open · Esc close · S save · E export');
     else if (tab === 'nights' && ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) { e.preventDefault(); moveSel(e.key === 'ArrowUp' ? -1 : e.key === 'ArrowDown' ? 1 : 0, e.key === 'ArrowLeft' ? -1 : e.key === 'ArrowRight' ? 1 : 0); }
-    else if (tab === 'nights' && e.key === 'Enter' && e.target.classList.contains('cell')) openNight(+e.target.dataset.s, +e.target.dataset.k);
+    else if (tab === 'nights' && e.key === 'Enter' && e.target instanceof Element && e.target.classList.contains('cell')) openNight(+e.target.dataset.s, +e.target.dataset.k);
   });
 }
 main();
