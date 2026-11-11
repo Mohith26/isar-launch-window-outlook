@@ -36,7 +36,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .navbar { --logo-color-secondary: #095EDD; --logo-color-primary: currentColor; position: sticky; top: 0; z-index: 30; background: #fff; border-bottom: 1px solid transparent; transition: border-color .15s; display: flex; align-items: center; justify-content: space-between; padding: 18px 24px 14px; }
 .navbar.is-sticky { border-bottom-color: #ededed; }
 .isar-logo { height: 40px; width: auto; color: var(--dark); fill: currentColor; margin-bottom: -8px; }
-.navbar nav { display: flex; align-items: center; gap: 4px; }
+.navbar nav { display: flex; align-items: center; gap: 4px; transform: translateY(-3px); }
 .menu-item { position: relative; border-radius: 9999px; padding: .5rem 1rem; font-family: var(--mono); font-size: 14px; line-height: 1.46; font-feature-settings: "ss01" on, "zero" on; transition: color .15s; }
 .menu-item:hover { color: rgba(0, 11, 39, .5); }
 .menu-item.active { color: var(--blue); }
