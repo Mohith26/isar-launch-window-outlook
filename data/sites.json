@@ -1,0 +1,24 @@
+{
+ "source": "ERA5 hourly reanalysis via Open-Meteo historical weather API (models=era5, 0.25 deg)",
+ "start": "1995-01-01T00:00Z",
+ "end": "2026-10-31T23:00Z",
+ "bytesPerHour": 4,
+ "encoding": [
+  "wind10 m/s*4",
+  "gust10 m/s*4",
+  "(t2m C + 60)*2",
+  "WMO weather code"
+ ],
+ "sites": {
+  "andoya": {
+   "name": "Andøya Spaceport (Nordmela)",
+   "lat": 69.135,
+   "lon": 15.64,
+   "tz": "Europe/Oslo",
+   "gridLat": 69.0,
+   "gridLon": 15.75,
+   "hours": 279048,
+   "note": "ERA5 values are bias-corrected to Andøya airport (ENAN) observations in data/andoya.bin"
+  }
+ }
+}
