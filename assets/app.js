@@ -79,6 +79,7 @@ function renderOverview() {
   const b = baseline();
   const dl = Math.min(plan.deadline, plan.horizon);
   const top = sh.phi.indexOf(Math.max(...sh.phi));
+  const plus1 = (O.limitSweep(S, plan, 'maxWind', [plan.crit.maxWind + 1])[0].goRate - sm.goRate) * plan.horizon;
   const dlt = (v, bv, fmt) => (b && bv !== undefined && Math.abs(v - bv) > 1e-9 ? `<span class="delta">${v > bv ? '+' : ''}${fmt(v - bv)} vs “${esc(b.name)}”</span>` : '');
   const w = plan.windowMode === 'orbit' ? 'in-plane window from the target orbit' : `${hhmm(Date.UTC(2026, 0, 1) + plan.winStartMin * 60000)}–${hhmm(Date.UTC(2026, 0, 1) + (plan.winStartMin + plan.winDurMin) * 60000)} UTC`;
   $('#tab-overview').innerHTML = `
@@ -86,7 +87,7 @@ function renderOverview() {
     <div class="card"><span class="num">01</span><div class="k">Launchable nights</div><div class="v">${pct(sm.goRate)}</div><div class="d">of ${sm.seasons} seasons × ${plan.horizon} nights met every launch criterion ${dlt(sm.goRate, b?.goRate, (x) => (100 * x).toFixed(1) + ' pts')}</div></div>
     <div class="card"><span class="num">02</span><div class="k">Launch within ${dl} days</div><div class="v">${pct(sm.byDeadline)}</div><div class="d">90% band ${pct(sm.band[0])}–${pct(sm.band[1])} over seasons ${dlt(sm.byDeadline, b?.byDeadline, (x) => (100 * x).toFixed(1) + ' pts')}</div></div>
     <div class="card"><span class="num">03</span><div class="k">Likely launch night</div><div class="v">${Number.isFinite(sm.p50) ? dayLabel(sm.p50) : '—'}</div><div class="d">P80 ${Number.isFinite(sm.p80) ? dayLabel(sm.p80) : 'after window'} · P90 ${Number.isFinite(sm.p90) ? dayLabel(sm.p90) : 'after window'}</div></div>
-    <div class="card"><span class="num">04</span><div class="k">Most nights lost to</div><div class="v" style="font-size:40px">${O.CRITERIA[top].label}</div><div class="d">${pct(sh.phi[top] / (sh.total || 1))} of the ${pct(sh.total)} lost nights (Shapley share)</div></div>
+    <div class="card"><span class="num">04</span><div class="k">Most nights lost to</div><div class="v" style="font-size:40px">${O.CRITERIA[top].label}</div><div class="d">${pct(sh.phi[top] / (sh.total || 1))} of the ${pct(sh.total)} lost nights (Shapley share). A ${plan.crit.maxWind + 1} m/s wind limit adds ${plus1.toFixed(1)} launchable nights per season.</div></div>
   </div>
   <div class="box">
     <div class="bh"><div><h3>When does the campaign fly?</h3><p>Probability the vehicle has launched by each night, window ${w}. Exact replay of each season; band = 90% bootstrap over seasons.</p></div>
@@ -126,8 +127,8 @@ function calChart() {
 function renderNights() {
   const n = plan.horizon;
   const cols = `52px repeat(${n}, minmax(0, 1fr))`;
-  let h = `<div class="box"><div class="bh"><div><h3>Every night of every season</h3><p>Rows are the ${grid.length} seasons since ${grid[0].year}; columns the nights from ${dayLabel(0)}. Blue nights met every criterion; the rest are shaded by what failed. Arrow keys move, Enter opens.</p></div>
-  <div class="legend">${['go', 'wind', 'ops', 'gust', 'snow', 'cold', 'thunder'].map((k) => `<span><i style="background:${COLORS[k]}"></i>${k === 'go' ? 'Go' : O.CRITERIA.find((c) => c.key === k).label}</span>`).join('')}</div></div>
+  let h = `<div class="box"><div class="bh"><div><h3>Every night of every season</h3><p>Rows are the ${grid.length} seasons since ${grid[0].year}; columns the nights from ${dayLabel(0)}. Blue nights met every criterion; the rest are shaded by what failed. Arrow keys move, Enter opens.</p></div></div>
+  <div class="legend" style="margin:-4px 0 14px">${['go', 'wind', 'ops', 'gust', 'snow', 'cold', 'thunder'].map((k) => `<span><i style="background:${COLORS[k]}"></i>${k === 'go' ? 'Go' : O.CRITERIA.find((c) => c.key === k).label}</span>`).join('')}</div>
   <div class="heat" style="grid-template-columns:${cols}" role="grid" aria-label="Launch weather by season and night">`;
   grid.forEach((s, i) => {
     h += `<div class="rowl" role="rowheader">${s.year}/${String((s.year + 1) % 100).padStart(2, '0')}</div>`;

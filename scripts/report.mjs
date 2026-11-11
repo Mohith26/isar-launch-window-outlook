@@ -31,6 +31,7 @@ const res = {
     lostNightsPct: +(100 * sh.total).toFixed(1),
     lostShare: Object.fromEntries(O.CRITERIA.map((c, k) => [c.key, +(100 * sh.phi[k] / sh.total).toFixed(1)])),
   },
+  windPlus1NightsPerSeason: +((windSweep[3].goRate - windSweep[2].goRate) * plan.horizon).toFixed(1),
   summerGoNightsPct: +(100 * smSummer.goRate).toFixed(1),
   windLimitSweep: windSweep.map((w) => ({ maxWind: w.value, goNightsPct: +(100 * w.goRate).toFixed(1) })),
   backtest: { agree: bt.filter((b) => b.agree === true).length, labelled: bt.filter((b) => b.agree !== null).length, rows: bt.map((b) => ({ date: b.windowOpen, logged: b.weather, predicted: b.predicted })) },
