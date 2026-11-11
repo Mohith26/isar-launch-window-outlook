@@ -33,7 +33,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 /* ---- navbar (isaraerospace.com) ---- */
-.navbar { position: sticky; top: 0; z-index: 30; background: #fff; display: flex; align-items: center; justify-content: space-between; padding: 18px 24px 14px; }
+.navbar { --logo-color-secondary: #095EDD; --logo-color-primary: currentColor; position: sticky; top: 0; z-index: 30; background: #fff; border-bottom: 1px solid transparent; transition: border-color .15s; display: flex; align-items: center; justify-content: space-between; padding: 18px 24px 14px; }
+.navbar.is-sticky { border-bottom-color: #ededed; }
 .isar-logo { height: 40px; width: auto; color: var(--dark); fill: currentColor; margin-bottom: -8px; }
 .navbar nav { display: flex; align-items: center; gap: 4px; }
 .menu-item { position: relative; border-radius: 9999px; padding: .5rem 1rem; font-family: var(--mono); font-size: 14px; line-height: 1.46; font-feature-settings: "ss01" on, "zero" on; transition: color .15s; }
@@ -109,8 +110,8 @@ svg text { font-family: var(--mono); font-size: 11px; fill: rgba(0, 11, 39, .55)
 .heat .rowl { font-family: var(--mono); font-size: 11px; color: var(--dark-62); text-align: right; padding-right: 8px; line-height: 14px; }
 .cell { height: 14px; border-radius: 2px; }
 .cell.sel { outline: 2px solid #000; outline-offset: 1px; }
-.drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 460px; max-width: 92vw; background: #fff; box-shadow: -24px 0 60px rgba(0, 11, 39, .14); z-index: 40; transform: translateX(105%); transition: transform .25s cubic-bezier(.4, 0, .2, 1); padding: 28px; overflow-y: auto; }
-.drawer.open { transform: none; }
+.drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 460px; max-width: 92vw; background: #fff; box-shadow: -24px 0 60px rgba(0, 11, 39, .14); z-index: 40; transform: translateX(105%); visibility: hidden; transition: transform .25s cubic-bezier(.4, 0, .2, 1), visibility 0s .25s; padding: 28px; overflow-y: auto; }
+.drawer.open { transform: none; visibility: visible; transition: transform .25s cubic-bezier(.4, 0, .2, 1); }
 .drawer h3 { font-family: var(--display); font-weight: 400; font-size: 32px; line-height: 1.16; margin: 8px 0 6px; }
 .drawer .close { position: absolute; top: 22px; right: 22px; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--dark-12); display: grid; place-items: center; }
 .verdict { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 13px; border-radius: 9999px; padding: .5rem .9rem; }

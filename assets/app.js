@@ -324,6 +324,7 @@ async function main() {
   renderTab(); renderSaved();
   if (sel) openNight(sel.s, sel.k);
   $('#boot').remove();
+  const nb = document.querySelector('.navbar'); const onScroll = () => nb.classList.toggle('is-sticky', window.scrollY > 4); window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
   $('#plan').addEventListener('change', refresh);
   $('#plan').addEventListener('submit', (e) => { e.preventDefault(); refresh(); savePlan(); });
