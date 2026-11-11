@@ -38,7 +38,7 @@
     <button class="pill" role="tab" data-tab="limits" aria-selected="false">Limits<kbd>3</kbd></button>
     <button class="pill" role="tab" data-tab="backtest" aria-selected="false">Backtest<kbd>4</kbd></button>
     <span class="sep" aria-hidden="true"></span>
-    <button class="pill" role="tab" data-tab="live" aria-selected="false"><span class="tag live" style="padding:0;background:none;color:inherit"><span class="dot"></span></span>Next 14 nights<kbd>5</kbd></button>
+    <button class="pill" role="tab" data-tab="live" aria-selected="false"><span class="tag live" style="padding:0 8px 0 0;background:none;color:inherit"><span class="dot"></span></span>Next 14 nights<kbd>5</kbd></button>
     <span class="spacer"></span>
     <button class="btn btn-ghost-blue" id="export" title="Export CSV (E)">Export CSV</button>
   </div>
@@ -56,7 +56,7 @@
         <span class="lbl" id="mode-l">Daily window</span>
         <div class="seg" role="group" aria-labelledby="mode-l" style="margin-bottom:14px"><button type="button" data-mode="fixed" aria-pressed="true">Fixed UTC</button><button type="button" data-mode="orbit" aria-pressed="false">From orbit</button></div>
         <div id="fixed-f" class="row2">
-          <div class="field"><label for="wstart">Opens (UTC)</label><input id="wstart" type="time" value="20:00" step="300"></div>
+          <div class="field"><label for="wstart">Opens (UTC)</label><input id="wstart" type="text" inputmode="numeric" pattern="\d{1,2}:\d{2}" value="20:00"></div>
           <div class="field"><label for="wdur">Length (min)</label><input id="wdur" type="number" min="5" max="600" step="5" value="90"></div>
         </div>
         <div id="orbit-f" hidden>
